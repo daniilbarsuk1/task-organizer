@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"task-organizer/models"
@@ -8,7 +8,7 @@ import (
 )
 
 func OpenDB() *gorm.DB {
-	dsn := "user=postgres password=postgres dbname=taskmanager port=5432 sslmode=disable TimeZone=Europe/Minsk"
+	dsn := "user=postgres password=admin dbname=taskmanager port=5432 sslmode=disable TimeZone=Europe/Minsk"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)

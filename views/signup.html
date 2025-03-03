@@ -13,19 +13,19 @@
 
 <body class="text-center">
     <main class="form-signin">
-        <form>
+        <form method="POST">
             <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="Имя">
-                <label for="floatingInput">Имя</label>
+                <input type="text" class="form-control" name="name" id="inputName" placeholder="Имя">
+                <label for="inputName">Имя</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email</label>
+                <input type="email" class="form-control" name="email" id="inputEmail" placeholder="name@example.com">
+                <label for="inputEmail">Email</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
-                <label for="floatingPassword">Пароль</label>
+                <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Пароль">
+                <label for="inputPassword">Пароль</label>
             </div>
             
             <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>

@@ -1,16 +1,22 @@
-package main
+package controllers
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"task-organizer/models"
+	"task-organizer/services"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type Controller struct {
-	DB *gorm.DB
+	Service services.Service
+}
+
+func New() Controller {
+	t := Controller{}
+	t.Service = services.New()
+	return t
 }
 
 func (t Controller) Register(r *gin.Engine) {
@@ -26,8 +32,13 @@ func (t Controller) Register(r *gin.Engine) {
 	r.POST("/signup", t.Signup)
 }
 
-func (r Controller) Signup(c *gin.Context) {
+func (t Controller) Signup(c *gin.Context) {
 	var user models.User
 	c.Bind(&user)
-	fmt.Print("data: " + user.Username)
+	err := t.Service.CreateUser(user)
+	if err != nil {
+		log.Print(err)
+	}
+	c.Request.Method = http.MethodGet
+	c.Redirect(http.StatusSeeOther, "/login")
 }
