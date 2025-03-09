@@ -1,0 +1,38 @@
+services:
+    database:
+        image: postgres:17
+        restart: always
+        networks:
+            - net
+        environment:
+            POSTGRES_HOST: localhost
+            POSTGRES_USER: postgres
+            PGUSER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: taskmanager
+            POSTGRES_HOST_AUTH_METHOD: trust
+        healthcheck:
+            test: pg_isready
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    backend:
+        image: ubuntu:24.04
+        build: .
+        tty: true
+        ports:
+            - "8080:8080"
+        depends_on:
+            database:
+                condition: service_healthy
+        networks:
+            - net
+        environment:
+            GOPATH: "/home/ubuntu" 
+            PATH: "${PATH}:/usr/local/go/bin:${GOPATH}/bin"
+networks:
+    net:
+        name: net
+        driver: bridge
+          
